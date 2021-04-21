@@ -4,11 +4,12 @@
       v-show="visible"
       class="el-time-panel el-popper"
       :class="popperClass">
-      <div class="el-time-panel__content" :class="{ 'has-seconds': showSeconds }">
+      <div class="el-time-panel__content" :class="{ 'has-minutes': showMinutes,'has-seconds': showSeconds }">
         <time-spinner
           ref="spinner"
           @change="handleChange"
           :arrow-control="useArrow"
+		  :show-minutes="showMinutes"
           :show-seconds="showSeconds"
           :am-pm-mode="amPmMode"
           @select-range="setSelectionRange"
@@ -100,6 +101,9 @@
     },
 
     computed: {
+	  showMinutes() {
+        return (this.format || '').indexOf('mm') !== -1;
+      },
       showSeconds() {
         return (this.format || '').indexOf('ss') !== -1;
       },
@@ -170,8 +174,8 @@
       },
 
       changeSelectionRange(step) {
-        const list = [0, 3].concat(this.showSeconds ? [6] : []);
-        const mapping = ['hours', 'minutes'].concat(this.showSeconds ? ['seconds'] : []);
+        const list = [0, 1].concat(this.showMinutes ? [4]:this.showSeconds ? [6] : []);
+        const mapping = ['hours'].concat(this.showMinutes?['minutes','seconds']:this.showSeconds ? ['seconds'] : []);
         const index = list.indexOf(this.selectionRange[0]);
         const next = (index + step + list.length) % list.length;
         this.$refs.spinner.emitSelectRange(mapping[next]);

@@ -46,6 +46,16 @@
       margin-left: 12%;
     }
 
+	&.has-minutes {
+      &::after {
+        left: calc(100% / 2 * 2);
+      }
+
+      &::before {
+        padding-left: calc(100% / 2);
+      }
+	}
+	
     &.has-seconds {
       &::after {
         left: calc(100% / 3 * 2);

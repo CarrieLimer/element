@@ -1,6 +1,12 @@
 @import "../common/var";
 
 @include b(time-spinner) {
+  text-align: center;
+  &.has-minutes {
+    .el-time-spinner__wrapper {
+      width: 50%;
+    }
+  }
   &.has-seconds {
     .el-time-spinner__wrapper {
       width: 33.3%;

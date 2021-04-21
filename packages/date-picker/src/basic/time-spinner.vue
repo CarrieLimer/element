@@ -1,5 +1,5 @@
 <template>
-  <div class="el-time-spinner" :class="{ 'has-seconds': showSeconds }">
+  <div class="el-time-spinner" :class="{ 'has-minutes': showMinutes,'has-seconds': showSeconds }">
     <template v-if="!arrowControl">
       <el-scrollbar
         @mouseenter.native="emitSelectRange('hours')"
@@ -18,6 +18,7 @@
           :class="{ 'active': hour === hours, 'disabled': disabled }">{{ ('0' + (amPmMode ? (hour % 12 || 12) : hour )).slice(-2) }}{{ amPm(hour) }}</li>
       </el-scrollbar>
       <el-scrollbar
+	    v-show="showMinutes"
         @mouseenter.native="emitSelectRange('minutes')"
         @mousemove.native="adjustCurrentSpinner('minutes')"
         class="el-time-spinner__wrapper"
@@ -67,7 +68,8 @@
       </div>
       <div
         @mouseenter="emitSelectRange('minutes')"
-        class="el-time-spinner__wrapper is-arrow">
+        class="el-time-spinner__wrapper is-arrow"
+		v-if="showMinutes">
         <i v-repeat-click="decrease" class="el-time-spinner__arrow el-icon-arrow-up"></i>
         <i v-repeat-click="increase" class="el-time-spinner__arrow el-icon-arrow-down"></i>
         <ul class="el-time-spinner__list" ref="minutes">
@@ -114,7 +116,11 @@
 
     props: {
       date: {},
-      defaultValue: {}, // reserved for future use
+	  defaultValue: {}, // reserved for future use
+	  showMinutes: {
+        type: Boolean,
+        default: true
+      },
       showSeconds: {
         type: Boolean,
         default: true
