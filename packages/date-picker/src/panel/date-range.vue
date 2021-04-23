@@ -275,15 +275,31 @@
       },
 
       minVisibleTime() {
-        if (this.timeUserInput.min !== null) return this.timeUserInput.min;
-        if (this.minDate) return formatDate(this.minDate, this.timeFormat);
-        return '';
+		if (this.timeUserInput.min !== null) return this.timeUserInput.min;
+		
+		let _result = '';
+		if (this.minDate) 
+		_result = formatDate(this.minDate, this.timeFormat);
+		
+		/** 为使time格式'HH'时显示为'HH:00'所以特殊处理下 */
+		if(this.timeFormat==='HH'||this.timeFormat==='hh')
+		_result +=':00';
+
+		return _result;
       },
 
       maxVisibleTime() {
-        if (this.timeUserInput.max !== null) return this.timeUserInput.max;
-        if (this.maxDate || this.minDate) return formatDate(this.maxDate || this.minDate, this.timeFormat);
-        return '';
+		if (this.timeUserInput.max !== null) return this.timeUserInput.max;
+		
+		let _result = '';
+		if (this.maxDate || this.minDate) 
+		_result = formatDate(this.maxDate || this.minDate, this.timeFormat);
+		
+		/** 为使time格式'HH'时显示为'HH:00'所以特殊处理下 */
+		if(this.timeFormat==='HH'||this.timeFormat==='hh')
+		_result +=':00';
+
+        return _result;
       },
 
       timeFormat() {

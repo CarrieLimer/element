@@ -6,7 +6,7 @@
 	<div>
 		<el-date-picker
 			type="datetime"
-			format="yyyy-MM-dd HH:mm"
+			format="yyyy-MM-dd HH"
 			v-model="dateValue"
 		></el-date-picker>
 	</div>

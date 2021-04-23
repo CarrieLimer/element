@@ -553,7 +553,10 @@
         if (this.userInputTime !== null) {
           return this.userInputTime;
         } else {
-          return formatDate(this.value || this.defaultValue, this.timeFormat);
+			let _result =  formatDate(this.value || this.defaultValue, this.timeFormat);
+			if(this.timeFormat==='HH'||this.timeFormat==='hh')
+			_result+=':00'
+			return _result;
         }
       },
 

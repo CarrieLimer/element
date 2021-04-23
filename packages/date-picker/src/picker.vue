@@ -502,7 +502,20 @@ export default {
     },
 
     displayValue() {
-      const formattedValue = formatAsFormatAndType(this.parsedValue, this.format, this.type, this.rangeSeparator);
+		let formattedValue = formatAsFormatAndType(this.parsedValue, this.format, this.type, this.rangeSeparator);
+
+		/** 为使日期格式'yyyy-MM-dd HH'时显示为'yyyy-MM-dd HH:00'所以特殊处理下 */
+		let _formatArr = this.format.split(' ');
+		if(_formatArr.length>1&&_formatArr[1].length<3){
+			if (Array.isArray(this.userInput)||formattedValue) {
+				if(Array.isArray(formattedValue)){
+					formattedValue = formattedValue.map(_item=>{_item+=':00';return _item});
+				}else{
+					formattedValue +=':00';
+				}
+			}
+		}
+
       if (Array.isArray(this.userInput)) {
         return [
           this.userInput[0] || (formattedValue && formattedValue[0]) || '',

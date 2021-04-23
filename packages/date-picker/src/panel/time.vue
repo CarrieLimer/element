@@ -123,7 +123,7 @@
       },
 
       handleChange(date) {
-        // this.visible avoids edge cases, when use scrolls during panel closing animation
+		// this.visible avoids edge cases, when use scrolls during panel closing animation
         if (this.visible) {
           this.date = clearMilliseconds(date);
           // if date is out of range, do not emit
@@ -139,7 +139,7 @@
       },
 
       handleConfirm(visible = false, first) {
-        if (first) return;
+		if (first) return;
         const date = clearMilliseconds(limitTimeRange(this.date, this.selectableRange, this.format));
         this.$emit('pick', date, visible, first);
       },
